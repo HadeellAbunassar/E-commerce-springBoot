@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+.navbar {
+    border-bottom: 2px solid white;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000900;
+}
+
+.bg-dark {
+    position: relative;
+    z-index: 1;
+}
+
+.sidebar {
+    background-color: #343a40;
+    color: white;
+    padding: 1rem;
+    width: 200px;
+    min-height: 100vh;
+    border-right: 2px solid white;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    background-color: #495057;
+}
+
+.navbar-brand .fa-user {
+    margin-right: 8px;
+}
+
+.navbar-text {
+    font-family: "Qwitcher Grypen", cursive;
+    font-weight: bold;
+    font-size: 3rem;
+}
+
+.main-content {
+    margin-left: 80px;
+    padding: 1rem;
+    width:100%;
+}
+
+.create-form {
+    display: none;
+}
+
+

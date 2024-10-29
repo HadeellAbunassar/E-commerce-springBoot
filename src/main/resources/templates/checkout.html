@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Guides:wght@400..700&family=Qwitcher+Grypen:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<nav class="nav-bar">
+    <div class="nav-title">E-commerce</div>
+</nav>
+
+<form id="regForm" action="/orders" method="POST" th:data-user-id="${session.userId}">
+    <h1>Checkout</h1>
+
+
+    <div class="tab">Order Information:
+        <p><input placeholder="Address..." oninput="this.className = ''" name="address" required></p>
+        <p><input placeholder="Phone..." oninput="this.className = ''" name="phoneNumber" required></p>
+        <p><input placeholder="City..." oninput="this.className = ''" name="city" required></p>
+        <p><input type="number" placeholder="Postal Code..." oninput="this.className = ''" name="postalCode" required></p>
+    </div>
+
+    <div class="tab">Payment Information:
+        <p><select name="paymentMethod" required>
+            <option value="creditCard">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="cash">Cash On Delivery</option>
+        </select></p>
+        <p><input type="number" placeholder="Amount you will pay..." oninput="this.className = ''" name="amount" required></p>
+    </div>
+
+    <div style="overflow:auto;">
+        <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+        </div>
+    </div>
+
+    <div style="text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+    </div>
+</form>
+
+<script th:src="@{/js/UI/checkout.js}"></script>
+
+
+</body>
+</html>
