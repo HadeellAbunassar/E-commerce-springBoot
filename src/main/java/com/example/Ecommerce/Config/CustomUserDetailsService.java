@@ -32,9 +32,9 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .build();
     }
 
-    private Collection<GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) { // Change to Set<Role>
+    private Collection<GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name())) // Use enum's name() method
+                .map(role -> new SimpleGrantedAuthority(role.name()))
                 .collect(Collectors.toList());
     }
 }

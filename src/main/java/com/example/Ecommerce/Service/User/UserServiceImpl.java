@@ -1,5 +1,6 @@
 package com.example.Ecommerce.Service.User;
 
+import com.example.Ecommerce.Entities.Cart;
 import com.example.Ecommerce.Entities.Role;
 import com.example.Ecommerce.Entities.User;
 import com.example.Ecommerce.ExceptionHandling.CustomException.UserNotFoundException;
@@ -21,10 +22,18 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
 
     @Override
     public User saveUser(User user) {
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(Role.ROLE_USER);
+        user.setCart(new Cart());
+
         return userRepository.save(user);
     }
 

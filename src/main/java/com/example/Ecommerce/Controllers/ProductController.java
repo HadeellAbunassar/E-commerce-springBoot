@@ -1,4 +1,4 @@
-package com.example.Ecommerce.Controllers.AdminPanelController;
+package com.example.Ecommerce.Controllers;
 
 import com.example.Ecommerce.Entities.Category;
 import com.example.Ecommerce.Entities.Product;

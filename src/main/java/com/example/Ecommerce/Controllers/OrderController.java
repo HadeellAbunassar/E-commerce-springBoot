@@ -1,6 +1,6 @@
-package com.example.Ecommerce.Controllers.UI;
+package com.example.Ecommerce.Controllers;
 
-import com.example.Ecommerce.DTO.OrderDTO;
+import com.example.Ecommerce.DTO.OrderRequestDTO;
 import com.example.Ecommerce.DTO.OrderItemDTO;
 import com.example.Ecommerce.DTO.OrderResponseDTO;
 import com.example.Ecommerce.Entities.*;
@@ -23,8 +23,7 @@ public class OrderController {
 
 
     @PostMapping()
-    public ResponseEntity<Order> CreateOrder(@RequestBody OrderDTO orderRequest){
-
+    public ResponseEntity<Order> CreateOrder(@RequestBody OrderRequestDTO orderRequest){
         Order createdOrder = orderService.saveOrder(orderRequest);
      return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
 

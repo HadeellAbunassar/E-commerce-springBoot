@@ -1,4 +1,4 @@
-package com.example.Ecommerce.Controllers.AdminPanelController;
+package com.example.Ecommerce.Controllers;
 
 import com.example.Ecommerce.DTO.UserDTO;
 import com.example.Ecommerce.Entities.Cart;
@@ -28,31 +28,6 @@ public class UserController {
 
     @Autowired
     PasswordEncoder passwordEncoder;
-
-    @PostMapping()
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        Set<Role> roles = new HashSet<>();
-
-        if (user.getRoles() != null) {
-            for (Role roleName : user.getRoles()) {
-                try {
-                    Role validRole = Role.valueOf(String.valueOf(roleName));
-                    roles.add(validRole);
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Invalid role: " + roleName); // wont happen
-                }
-            }
-        }
-
-        user.setRoles(roles);
-        user.setCart(new Cart());
-
-        User createdUser = userServiceImpl.saveUser(user);
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
-    }
 
 
     @GetMapping()
@@ -87,11 +62,10 @@ public class UserController {
         User updatedUser = userServiceImpl.updateUser(user, userId , passwordEncoder);
 
         return new ResponseEntity<>(updatedUser,HttpStatus.OK);
-
     }
 
     @DeleteMapping("/{id}") //done
-    public ResponseEntity<String> deleteDepartmentById(@PathVariable("id") Long userId) {
+    public ResponseEntity<String> deleteUserById(@PathVariable("id") Long userId) {
         userServiceImpl.deleteUserById(userId);
         return new ResponseEntity<>("Deleted Successfully", HttpStatus.NO_CONTENT);
     }

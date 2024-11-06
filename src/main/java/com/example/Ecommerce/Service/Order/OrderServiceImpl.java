@@ -1,6 +1,6 @@
 package com.example.Ecommerce.Service.Order;
 
-import com.example.Ecommerce.DTO.OrderDTO;
+import com.example.Ecommerce.DTO.OrderRequestDTO;
 import com.example.Ecommerce.Entities.*;
 import com.example.Ecommerce.Repositries.CartItemRepository;
 import com.example.Ecommerce.Repositries.OrderRepository;
@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public Order saveOrder(OrderDTO order) {
+    public Order saveOrder(OrderRequestDTO order) {
 
         User user = userService.getById(order.getUserId());
 

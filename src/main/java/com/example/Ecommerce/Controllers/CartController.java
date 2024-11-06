@@ -1,4 +1,4 @@
-package com.example.Ecommerce.Controllers.UI;
+package com.example.Ecommerce.Controllers;
 
 import com.example.Ecommerce.Entities.Cart;
 import com.example.Ecommerce.Entities.CartItem;
