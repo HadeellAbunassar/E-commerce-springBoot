@@ -6,13 +6,10 @@ import com.example.Ecommerce.Entities.User;
 import com.example.Ecommerce.ExceptionHandling.CustomException.UserNotFoundException;
 import com.example.Ecommerce.Repositries.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -49,13 +46,6 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        // Clear the user's roles
-        user.getRoles().clear();
-
-        // Save changes to ensure the associations are removed
-        userRepository.save(user);
-
-        // Now delete the user
         userRepository.deleteById(userId);
     }
 
@@ -65,22 +55,10 @@ public class UserServiceImpl implements UserService {
         User userDB = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        if (Objects.nonNull(user.getEmail()) && !user.getEmail().trim().isEmpty()) {
             userDB.setEmail(user.getEmail());
-        }
-        if (Objects.nonNull(user.getUsername()) && !user.getUsername().trim().isEmpty()) {
             userDB.setUsername(user.getUsername());
-        }
-        if (Objects.nonNull(user.getPassword()) && !user.getPassword().trim().isEmpty()) {
-            userDB.setPassword(passwordEncoder.encode(user.getPassword())); // Encrypt the password
-        }
+            userDB.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        if (user.getRoles() != null) {
-            userDB.getRoles().clear();
-            for (Role role : user.getRoles()) {
-                userDB.getRoles().add(role);
-            }
-        }
 
         return userRepository.save(userDB);
     }

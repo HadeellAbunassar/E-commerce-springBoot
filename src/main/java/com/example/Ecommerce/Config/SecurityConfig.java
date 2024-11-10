@@ -3,7 +3,6 @@ package com.example.Ecommerce.Config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -30,28 +29,11 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers("/register" , "/login").permitAll()
-                        .requestMatchers("/").hasRole("USER")
-                        .requestMatchers("/users","/users/**").permitAll()
-                        .requestMatchers("/cart" , "/product" , "/admin" , "/order").permitAll() // ****
-                        .requestMatchers(HttpMethod.GET,"/cart").hasRole("USER")
+                        .requestMatchers("/users","/users/**").hasRole("ADMIN")
+                        .requestMatchers("/carts" , "/products" , "/categories" , "/orders").hasRole("USER")
                 )
                 .httpBasic(Customizer.withDefaults())
-                .formLogin(form ->
-                        form
-                                .loginPage("/login")
-                                .defaultSuccessUrl("/", true)
-                                .failureUrl("/login?error=true")
-                                .permitAll()
-                )
-                .sessionManagement(session -> session
-                        .maximumSessions(1)
-                ).logout(logout ->
-                logout
-                        .logoutUrl("/auth/logout")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .permitAll());
+                .sessionManagement(session -> session.disable());
 
         return http.build();
     }

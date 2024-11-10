@@ -2,14 +2,14 @@ package com.example.Ecommerce.Controllers;
 
 import com.example.Ecommerce.Entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/login")
 public class LoginController {
 
@@ -20,15 +20,18 @@ public class LoginController {
         this.authenticationManager = authenticationManager;
     }
 
+    @PostMapping
+    public ResponseEntity<?> login(@RequestBody User user) {
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken =
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
 
-    @GetMapping
-    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
-        model.addAttribute("user", new User());
-        if (error != null) {
-            model.addAttribute("error", "Invalid username or password");
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            return ResponseEntity.ok("User authenticated successfully");
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid username or password");
         }
-        return "loginPage";
     }
-
-
 }
